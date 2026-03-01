@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #87CEEB; /* Sky blue background */
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Fun font */
+    user-select: none; /* Prevent text selection while clicking */
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 100;
+    pointer-events: none; /* Let clicks pass through UI empty areas */
+}
+
+#score-board {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+#start-btn {
+    font-size: 2rem;
+    padding: 10px 30px;
+    background-color: #FF69B4; /* Hot pink */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.1s;
+    font-family: inherit;
+    pointer-events: auto; /* Enable clicks on button */
+}
+
+#start-btn:active {
+    transform: scale(0.95);
+}
+
+.balloon {
+    position: absolute;
+    bottom: -150px; /* Start below screen */
+    width: 60px;
+    height: 80px;
+    background-color: var(--balloon-color, red);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    cursor: pointer;
+    box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* The little tie at the bottom of the balloon */
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid var(--balloon-color, red);
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    pointer-events: none; /* Don't block clicks */
+    animation: fall linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-120vh); /* Move above top of screen */
+    }
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100px) rotate(360deg);
+        opacity: 0;
+    }
+}

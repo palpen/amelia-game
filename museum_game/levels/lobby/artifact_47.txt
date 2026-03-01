@@ -1,0 +1,5 @@
+Title: Mystery Artifact 47
+Color: #ffeb3b
+X: 2286
+Y: 1869
+Description: [PLACEHOLDER] Replace this text with the actual description of the artifact. To add an image, save your picture as artifact_47.png or artifact_47.jpg in this same folder.

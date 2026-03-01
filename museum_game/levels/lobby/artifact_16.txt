@@ -1,0 +1,5 @@
+Title: Mystery Artifact 16
+Color: #a1887f
+X: 1083
+Y: 1436
+Description: This is a test

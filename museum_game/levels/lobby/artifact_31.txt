@@ -1,0 +1,5 @@
+Title: Mystery Artifact 31
+Color: #795548
+X: 2812
+Y: 995
+Description: [PLACEHOLDER] Replace this text with the actual description of the artifact. To add an image, save your picture as artifact_31.png or artifact_31.jpg in this same folder.

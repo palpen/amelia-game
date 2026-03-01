@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amelia Cute Source's Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="ui-layer">
+            <div id="score-display">Score: <span id="score">0</span></div>
+            <div id="high-score-display">High Score: <span id="high-score">0</span></div>
+            <div id="level-display">Level: <span id="level">1</span></div>
+            <div id="game-over" class="hidden">
+                <h2>Game Over!</h2>
+                <p>Final Score: <span id="final-score">0</span></p>
+                <p>High Score: <span id="final-high-score">0</span></p>
+                <button id="restart-btn">Play Again</button>
+            </div>
+            <div id="start-screen">
+                <h1>Amelia Cute Source's Adventure</h1>
+                <p>Press Space to Jump. Triple tap for Triple Jump.<br>Collect Pink Coins. Avoid Purple Obstacles.<br>Press 'P' or 'Escape' to Pause.</p>
+                <button id="start-btn">Start Game</button>
+            </div>
+            <div id="pause-screen" class="hidden">
+                <h2>Game Paused</h2>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-size: 18px; cursor: pointer;">
+                        <input type="checkbox" id="fast-mode-toggle" style="width: 18px; height: 18px;"> Enable Fast Mode
+                    </label>
+                </div>
+                <button id="resume-btn">Resume Game</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

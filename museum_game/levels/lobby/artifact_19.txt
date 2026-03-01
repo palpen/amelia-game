@@ -1,0 +1,5 @@
+Title: Mystery Artifact 19
+Color: #bdbdbd
+X: 1485
+Y: 482
+Description: [PLACEHOLDER] Replace this text with the actual description of the artifact. To add an image, save your picture as artifact_19.png or artifact_19.jpg in this same folder.

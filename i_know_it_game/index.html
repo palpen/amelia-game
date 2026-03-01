@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Know It!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Word Game!</h1>
+        
+        <div id="buckets-container">
+            <div class="bucket-zone" id="known-zone">
+                <h2 class="bucket-title">I Know It!</h2>
+                <div class="score" id="known-score">0</div>
+                <div class="bucket known" id="known-bucket">
+                    <span class="emoji">🌟</span>
+                </div>
+            </div>
+            
+            <div class="bucket-zone" id="unknown-zone">
+                <h2 class="bucket-title">I Don't Know It</h2>
+                <div class="score" id="unknown-score">0</div>
+                <div class="bucket unknown" id="unknown-bucket">
+                    <span class="emoji">🤔</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="word-area">
+            <div id="current-word" class="word-card">Loading...</div>
+        </div>
+        
+        <div id="progress">Words left: <span id="words-left">0</span></div>
+
+        <button id="reset-btn">Start Over</button>
+    </div>
+
+    <!-- Modal for showing lists -->
+    <div id="list-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2 id="modal-title">Words</h2>
+            <div class="modal-lists-container">
+                <ul id="modal-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

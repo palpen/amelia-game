@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museum Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main game area -->
+        <canvas id="game-canvas" width="1600" height="1200"></canvas>
+        
+        <!-- UI Elements -->
+        <div id="ui-layer">
+            <button id="save-btn" class="retro-btn">Save Game</button>
+            <div id="controls-hint">WASD/Arrows to move | E to interact</div>
+            
+            <div id="interaction-prompt" class="hidden">
+                <p>Press 'E' to inspect</p>
+            </div>
+        </div>
+
+        <!-- Artifact Overlay -->
+        <div id="artifact-overlay" class="hidden">
+            <div id="artifact-panel">
+                <button id="close-btn" class="retro-btn">X</button>
+                <button id="edit-btn" class="retro-btn">Edit</button>
+                
+                <h2 id="artifact-title">Artifact Title</h2>
+                <input type="text" id="artifact-title-input" class="retro-input hidden">
+                
+                <div id="artifact-image-container">
+                    <img id="artifact-image" src="" alt="Artifact" class="hidden">
+                    <span id="artifact-image-fallback">(No Image Available)</span>
+                    <div id="drag-drop-overlay" class="hidden">Drop Image Here</div>
+                </div>
+                
+                <p id="artifact-description">This is where the artifact's description will go. It can be quite long, describing the history and origin of the piece.</p>
+                <textarea id="artifact-description-input" class="retro-input hidden"></textarea>
+                
+                <button id="save-edit-btn" class="retro-btn hidden">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Audio overlay (browsers require user interaction to start audio) -->
+    <div id="start-screen">
+        <div class="start-panel">
+            <h1>Museum Explorer</h1>
+            <p>A retro 2D adventure.</p>
+            <button id="start-btn" class="retro-btn">Enter Museum</button>
+        </div>
+    </div>
+
+    <script src="artifacts_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

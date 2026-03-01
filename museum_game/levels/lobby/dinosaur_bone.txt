@@ -1,0 +1,5 @@
+Title: Dinosaur Bone
+Color: #e0e0e0
+X: 2200
+Y: 1350
+Description: A massive fossilized bone fragment. It belonged to a creature that roamed the earth 65 million years ago.

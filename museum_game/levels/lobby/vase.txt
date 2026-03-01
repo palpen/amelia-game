@@ -1,0 +1,5 @@
+Title: Ancient Vase
+Color: #8d6e63
+X: 1800
+Y: 1350
+Description: A beautifully crafted vase from a forgotten era. It has strange markings on the side that look like tiny birds.

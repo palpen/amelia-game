@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Pattern</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Guess the Pattern</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="pattern-type">Pattern Type:</label>
+                <select id="pattern-type">
+                    <option value="color">Colors Only</option>
+                    <option value="shape">Shapes Only</option>
+                    <option value="both" selected>Colors & Shapes</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="items-to-guess">Items to Guess:</label>
+                <select id="items-to-guess">
+                    <option value="1" selected>1 Item</option>
+                    <option value="2">2 Items</option>
+                    <option value="3">3 Items</option>
+                </select>
+            </div>
+            <button id="start-btn">New Pattern</button>
+        </div>
+
+        <div class="score-board">Score: <span id="score">0</span></div>
+
+        <div class="pattern-display" id="pattern-display">
+            <!-- Pattern items will go here -->
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="options-container" id="options-container">
+            <!-- Option buttons will go here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

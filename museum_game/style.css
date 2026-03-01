@@ -1,0 +1,282 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #222;
+    color: white;
+    font-family: 'Press Start 2P', monospace; /* Retro font */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    height: 90vh;
+    max-width: 95vw;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    border: 4px solid #5d4037; /* Brown retro border */
+    background-color: #000;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated; /* Sharp edges for retro feel */
+}
+
+/* UI Layer Overlays */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Let clicks pass through if needed */
+}
+
+.retro-btn {
+    pointer-events: auto;
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8d6e63;
+    border: 2px solid #3e2723;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.retro-btn:hover {
+    background-color: #a1887f;
+}
+
+.retro-btn:active {
+    background-color: #5d4037;
+}
+
+#save-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#controls-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 8px;
+    color: #ccc;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#interaction-prompt {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    text-align: center;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Artifact Modal */
+#artifact-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#artifact-panel {
+    background-color: #d7ccc8; /* Parchment-like color */
+    border: 4px solid #5d4037;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    height: 80%;
+    max-height: 400px;
+    color: #3e2723;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#close-btn {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    padding: 5px 10px;
+    background-color: #d32f2f;
+    border-color: #b71c1c;
+}
+
+#artifact-title {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 0px #fff;
+}
+
+#artifact-image-container {
+    flex: 1;
+    background: #000;
+    border: 2px solid #3e2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    margin-bottom: 15px;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+#artifact-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#artifact-image-fallback {
+    color: #777;
+}
+
+#artifact-description {
+    font-size: 10px;
+    line-height: 1.6;
+    height: 100px;
+    overflow-y: auto;
+    font-family: monospace; /* Easier to read for long text */
+}
+
+/* Start Screen */
+#start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-panel {
+    text-align: center;
+    border: 4px solid #5d4037;
+    padding: 40px;
+    background: #222;
+}
+
+.start-panel h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ffca28;
+}
+
+.start-panel p {
+    font-size: 10px;
+    margin-bottom: 30px;
+    color: #aaa;
+}
+
+/* Edit Mode Styles */
+#edit-btn {
+    position: absolute;
+    top: -4px;
+    right: 40px; /* next to close btn */
+    background-color: #f57c00;
+    border-color: #e65100;
+}
+
+#save-edit-btn {
+    margin-top: 15px;
+    background-color: #4caf50;
+    border-color: #388e3c;
+    width: 100%;
+}
+
+.retro-input {
+    font-family: 'Press Start 2P', monospace;
+    background: #000;
+    color: #fff;
+    border: 2px solid #5d4037;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#artifact-title-input {
+    font-size: 12px;
+    text-align: center;
+}
+
+#artifact-description-input {
+    font-size: 10px;
+    height: 100px;
+    resize: none;
+    line-height: 1.6;
+}
+
+#artifact-image-container {
+    flex: 1;
+    background: #000;
+    border: 2px solid #3e2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    margin-bottom: 15px;
+    font-size: 12px;
+    overflow: hidden;
+    position: relative; /* important for drop overlay */
+}
+
+#artifact-image-container.drag-over {
+    border-color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+#drag-drop-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4caf50;
+    font-size: 12px;
+    pointer-events: none; /* Let drops pass through to the container */
+}

@@ -1,0 +1,5 @@
+Title: Axolotl
+Color: #8d6e63
+X: 1800
+Y: 1300
+Description: The axolotl (Ambystoma mexicanum) is a critically endangered, fully aquatic salamander native only to the Lake Xochimilco area near Mexico City. Famous for "never growing up" they exhibit neoteny, meaning they retain larval features like external gills and a tail fin throughout their lives. They are renowned for their incredible ability to regenerate lost limbs and organs.
