@@ -11,12 +11,19 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.static(__dirname));
 
 app.post('/api/update_artifact', (req, res) => {
-    const { id, title, description, color, x, y, imageBase64, imageExtension } = req.body;
+    const { id, title, description, color, x, y, imageBase64, imageExtension, uploadedImageName } = req.body;
     
     // id is expected to be in the format: folder_filename
     const underscoreIndex = id.indexOf('_');
     const folder = id.substring(0, underscoreIndex);
     const filename = id.substring(underscoreIndex + 1);
+    
+    // Determine the new filename based on the uploaded image name, if any
+    let newFilename = filename;
+    if (uploadedImageName) {
+        // Basic sanitization
+        newFilename = uploadedImageName.replace(/[^a-zA-Z0-9_.-]/g, '_');
+    }
     
     const levelPath = path.join(__dirname, 'levels', folder);
     
@@ -25,20 +32,33 @@ app.post('/api/update_artifact', (req, res) => {
         fs.mkdirSync(levelPath, { recursive: true });
     }
 
+    // Clean up old files if the filename has changed
+    if (newFilename !== filename) {
+        const oldTxtPath = path.join(levelPath, `${filename}.txt`);
+        if (fs.existsSync(oldTxtPath)) fs.unlinkSync(oldTxtPath);
+        
+        // Try to remove old image (could be .png, .jpg, etc., but we don't know the exact extension so we check common ones)
+        const commonExts = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+        commonExts.forEach(ext => {
+            const oldImgPath = path.join(levelPath, `${filename}.${ext}`);
+            if (fs.existsSync(oldImgPath)) fs.unlinkSync(oldImgPath);
+        });
+    }
+
     // Write text file
     const txtContent = `Title: ${title}
 Color: ${color}
 X: ${x}
 Y: ${y}
 Description: ${description}`;
-    fs.writeFileSync(path.join(levelPath, `${filename}.txt`), txtContent);
+    fs.writeFileSync(path.join(levelPath, `${newFilename}.txt`), txtContent);
 
     // Write image if a new one was provided via drag and drop
     if (imageBase64) {
         // Strip off data URI scheme header
         const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
         const ext = imageExtension || 'png';
-        const imgPath = path.join(levelPath, `${filename}.${ext}`);
+        const imgPath = path.join(levelPath, `${newFilename}.${ext}`);
         fs.writeFileSync(imgPath, base64Data, 'base64');
     }
 

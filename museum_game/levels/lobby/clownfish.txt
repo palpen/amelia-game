@@ -1,0 +1,5 @@
+Title: clownfish
+Color: #ffffff
+X: 100
+Y: 100
+Description: this is a clownfish. clownfishes are very cute. they like to snuggle with sea anemones. this clownfish is named Amelia.

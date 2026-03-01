@@ -32,6 +32,7 @@ let activeArtifact = null;
 let isEditMode = false;
 let uploadedImageBase64 = null;
 let uploadedImageExt = null;
+let uploadedImageName = null;
 
 // Level Dimensions (5x bigger than the 800x600 canvas, reduced from 10x)
 const LEVEL_WIDTH = 4000;
@@ -267,6 +268,7 @@ function openArtifact(artifact) {
     isEditMode = false;
     uploadedImageBase64 = null;
     uploadedImageExt = null;
+    uploadedImageName = null;
     
     // Show standard UI, hide edit UI
     artifactTitle.classList.remove('hidden');
@@ -352,6 +354,9 @@ imgContainer.addEventListener('drop', (e) => {
             const ext = file.name.split('.').pop();
             uploadedImageExt = ext || 'png';
             
+            uploadedImageName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            titleInput.value = uploadedImageName;
+            
             // Preview the uploaded image immediately
             artifactImage.src = uploadedImageBase64;
             artifactImage.classList.remove('hidden');
@@ -386,7 +391,8 @@ saveEditBtn.addEventListener('click', async () => {
                 x: activeArtifact.x,
                 y: activeArtifact.y,
                 imageBase64: uploadedImageBase64,
-                imageExtension: uploadedImageExt
+                imageExtension: uploadedImageExt,
+                uploadedImageName: uploadedImageName
             })
         });
         
