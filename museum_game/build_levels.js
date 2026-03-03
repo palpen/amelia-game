@@ -5,6 +5,7 @@ const levelsDir = path.join(__dirname, 'levels');
 const outputFile = path.join(__dirname, 'artifacts_data.js');
 
 let allArtifacts = [];
+let allCarpets = [];
 const LEVEL_WIDTH = 4000;
 const LEVEL_HEIGHT = 3000;
 
@@ -82,11 +83,61 @@ levelFolders.forEach(levelFolder => {
             });
         }
     });
+
+    const carpetsPath = path.join(levelPath, 'carpets');
+    if (fs.existsSync(carpetsPath)) {
+        const carpetFiles = fs.readdirSync(carpetsPath);
+        carpetFiles.forEach(file => {
+            if (file.endsWith('.txt')) {
+                const id = file.replace('.txt', '');
+                const content = fs.readFileSync(path.join(carpetsPath, file), 'utf8');
+                const lines = content.replace(/\r\n/g, '\n').split('\n');
+
+                let title = id;
+                let x = 0;
+                let y = 0;
+                let width = 200;
+                let height = 150;
+
+                lines.forEach(line => {
+                    if (line.startsWith('Title:')) title = line.replace('Title:', '').trim();
+                    else if (line.startsWith('X:')) x = parseFloat(line.replace('X:', '').trim());
+                    else if (line.startsWith('Y:')) y = parseFloat(line.replace('Y:', '').trim());
+                    else if (line.startsWith('Width:')) width = parseFloat(line.replace('Width:', '').trim());
+                    else if (line.startsWith('Height:')) height = parseFloat(line.replace('Height:', '').trim());
+                });
+
+                let imagePath = null;
+                if (fs.existsSync(path.join(carpetsPath, `${id}.png`))) {
+                    imagePath = `levels/${levelFolder}/carpets/${id}.png`;
+                } else if (fs.existsSync(path.join(carpetsPath, `${id}.jpg`))) {
+                    imagePath = `levels/${levelFolder}/carpets/${id}.jpg`;
+                }
+
+                allCarpets.push({
+                    id: `${levelFolder}_carpet_${id}`,
+                    level: levelFolder,
+                    x, y, width, height,
+                    title,
+                    image: imagePath
+                });
+            }
+        });
+    }
 });
 
-const jsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
+const artifactsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
 // Run 'node build_levels.js' to update this file from the 'levels/' directory.
 const ARTIFACTS_DATA = ${JSON.stringify(allArtifacts, null, 4)};
 `;
-fs.writeFileSync(outputFile, jsContent);
+fs.writeFileSync(outputFile, artifactsContent);
+
+const carpetsOutputFile = path.join(__dirname, 'carpets_data.js');
+const carpetsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
+// Run 'node build_levels.js' to update this file from the 'levels/' directory.
+const CARPETS_DATA = ${JSON.stringify(allCarpets, null, 4)};
+`;
+fs.writeFileSync(carpetsOutputFile, carpetsContent);
+
 console.log(`Successfully built ${allArtifacts.length} artifacts into artifacts_data.js!`);
+console.log(`Successfully built ${allCarpets.length} carpets into carpets_data.js!`);

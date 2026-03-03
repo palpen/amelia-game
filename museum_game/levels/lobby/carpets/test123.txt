@@ -1,0 +1,5 @@
+Title: Test Carpet
+X: 1000
+Y: 1000
+Width: 100
+Height: 100

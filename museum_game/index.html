@@ -15,10 +15,13 @@
         <!-- UI Elements -->
         <div id="ui-layer">
             <button id="save-btn" class="retro-btn">Save Game</button>
-            <div id="controls-hint">WASD/Arrows to move | E to interact</div>
+            <div id="controls-hint">WASD/Arrows to move | E to interact | Space to jump | Click or 'I' to edit carpet</div>
             
             <div id="interaction-prompt" class="hidden">
                 <p>Press 'E' to inspect</p>
+            </div>
+            <div id="carpet-prompt" class="hidden">
+                <p>Click or 'I' to edit carpet</p>
             </div>
         </div>
 
@@ -43,6 +46,27 @@
                 <button id="save-edit-btn" class="retro-btn hidden">Save Changes</button>
             </div>
         </div>
+        <!-- Carpet Resize Overlay -->
+        <div id="carpet-overlay" class="hidden">
+            <div id="carpet-panel">
+                <button id="carpet-close-btn" class="retro-btn">X</button>
+                <h2 id="carpet-title">Carpet</h2>
+                <div id="carpet-image-container">
+                    <img id="carpet-image" src="" alt="Carpet" class="hidden">
+                    <span id="carpet-image-fallback">Drag & Drop Image Here</span>
+                    <div id="carpet-drag-drop-overlay" class="hidden">Drop Image Here</div>
+                </div>
+                <div class="carpet-field">
+                    <label for="carpet-width-input">Width:</label>
+                    <input type="number" id="carpet-width-input" class="retro-input" min="20" step="10">
+                </div>
+                <div class="carpet-field">
+                    <label for="carpet-height-input">Height:</label>
+                    <input type="number" id="carpet-height-input" class="retro-input" min="20" step="10">
+                </div>
+                <button id="carpet-save-btn" class="retro-btn">Save Changes</button>
+            </div>
+        </div>
     </div>
 
     <!-- Start Audio overlay (browsers require user interaction to start audio) -->
@@ -55,6 +79,7 @@
     </div>
 
     <script src="artifacts_data.js"></script>
+    <script src="carpets_data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -72,6 +72,64 @@ Description: ${description}`;
     }
 });
 
+app.post('/api/update_carpet', (req, res) => {
+    const { id, title, width, height, x, y, imageBase64, imageExtension, uploadedImageName } = req.body;
+
+    // id format: <level>_carpet_<filename>
+    const match = id.match(/^(.+?)_carpet_(.+)$/);
+    if (!match) {
+        return res.status(400).json({ success: false, error: "Invalid carpet ID format." });
+    }
+    const folder = match[1];
+    let filename = match[2];
+    
+    // Determine the new filename based on the uploaded image name, if any
+    let newFilename = filename;
+    if (uploadedImageName) {
+        newFilename = uploadedImageName.replace(/[^a-zA-Z0-9_.-]/g, '_');
+    }
+
+    const carpetsPath = path.join(__dirname, 'levels', folder, 'carpets');
+    if (!fs.existsSync(carpetsPath)) {
+        fs.mkdirSync(carpetsPath, { recursive: true });
+    }
+    
+    // Clean up old files if the filename has changed
+    if (newFilename !== filename) {
+        const oldTxtPath = path.join(carpetsPath, `${filename}.txt`);
+        if (fs.existsSync(oldTxtPath)) fs.unlinkSync(oldTxtPath);
+        
+        const commonExts = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+        commonExts.forEach(ext => {
+            const oldImgPath = path.join(carpetsPath, `${filename}.${ext}`);
+            if (fs.existsSync(oldImgPath)) fs.unlinkSync(oldImgPath);
+        });
+    }
+
+    const txtContent = `Title: ${title}
+X: ${x}
+Y: ${y}
+Width: ${width}
+Height: ${height}`;
+    fs.writeFileSync(path.join(carpetsPath, `${newFilename}.txt`), txtContent);
+    
+    // Write image if a new one was provided
+    if (imageBase64) {
+        const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
+        const ext = imageExtension || 'png';
+        const imgPath = path.join(carpetsPath, `${newFilename}.${ext}`);
+        fs.writeFileSync(imgPath, base64Data, 'base64');
+    }
+
+    try {
+        execSync('node build_levels.js', { cwd: __dirname });
+        res.json({ success: true, message: 'Carpet updated and rebuilt successfully.' });
+    } catch (error) {
+        console.error("Error rebuilding:", error);
+        res.status(500).json({ success: false, error: "Failed to rebuild." });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`
 ======================================================`);
