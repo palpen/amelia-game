@@ -1,6 +1,4 @@
-// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
-// Run 'node build_levels.js' to update this file from the 'levels/' directory.
-const CARPETS_DATA = [
+[
     {
         "id": "lobby_carpet_pink_carpet",
         "level": "lobby",
@@ -11,4 +9,4 @@ const CARPETS_DATA = [
         "title": "Welcome Mat",
         "image": "levels/lobby/carpets/pink_carpet.png"
     }
-];
+]

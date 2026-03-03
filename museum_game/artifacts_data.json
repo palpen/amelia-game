@@ -1,6 +1,4 @@
-// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
-// Run 'node build_levels.js' to update this file from the 'levels/' directory.
-const ARTIFACTS_DATA = [
+[
     {
         "id": "lobby_artifact_03",
         "x": 3509,
@@ -562,4 +560,4 @@ const ARTIFACTS_DATA = [
         "color": "#8d6e63",
         "image": null
     }
-];
+]

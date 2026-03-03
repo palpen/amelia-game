@@ -131,6 +131,7 @@ const artifactsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
 const ARTIFACTS_DATA = ${JSON.stringify(allArtifacts, null, 4)};
 `;
 fs.writeFileSync(outputFile, artifactsContent);
+fs.writeFileSync(path.join(__dirname, 'artifacts_data.json'), JSON.stringify(allArtifacts, null, 4));
 
 const carpetsOutputFile = path.join(__dirname, 'carpets_data.js');
 const carpetsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
@@ -138,6 +139,7 @@ const carpetsContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
 const CARPETS_DATA = ${JSON.stringify(allCarpets, null, 4)};
 `;
 fs.writeFileSync(carpetsOutputFile, carpetsContent);
+fs.writeFileSync(path.join(__dirname, 'carpets_data.json'), JSON.stringify(allCarpets, null, 4));
 
 console.log(`Successfully built ${allArtifacts.length} artifacts into artifacts_data.js!`);
 console.log(`Successfully built ${allCarpets.length} carpets into carpets_data.js!`);

@@ -250,6 +250,36 @@ function updateNPCs() {
 }
 
 // Save & Load Logic
+
+async function reloadGameData() {
+    try {
+        const artRes = await fetch('artifacts_data.json?t=' + Date.now());
+        const artData = await artRes.json();
+        
+        artifacts.length = 0;
+        artifacts.push(...artData);
+        
+        const carpRes = await fetch('carpets_data.json?t=' + Date.now());
+        const carpData = await carpRes.json();
+        
+        carpets.length = 0;
+        carpets.push(...carpData);
+
+        carpets.forEach(c => {
+            if (c.image) {
+                const img = new Image();
+                img.src = c.image + "?t=" + Date.now();
+                carpetImages[c.id] = img;
+            } else {
+                delete carpetImages[c.id];
+            }
+        });
+        
+    } catch (e) {
+        console.error("Failed to dynamically reload game data:", e);
+    }
+}
+
 function saveGame() {
     const saveData = {
         playerX: player.x,
@@ -445,8 +475,13 @@ carpetSaveBtn.addEventListener('click', async () => {
         });
         const result = await response.json();
         if (result.success) {
-            carpetSaveBtn.innerText = "Saved! Reloading...";
-            setTimeout(() => location.reload(), 500);
+            carpetSaveBtn.innerText = "Saved!";
+            setTimeout(() => {
+                closeCarpetEditor();
+                carpetSaveBtn.innerText = "Save Changes";
+                carpetSaveBtn.disabled = false;
+                reloadGameData();
+            }, 500);
         } else {
             alert("Failed to save carpet.");
             carpetSaveBtn.innerText = originalText;
@@ -585,9 +620,12 @@ saveEditBtn.addEventListener('click', async () => {
         
         const result = await response.json();
         if (result.success) {
-            saveEditBtn.innerText = "Saved! Reloading...";
+            saveEditBtn.innerText = "Saved!";
             setTimeout(() => {
-                location.reload(); 
+                closeArtifact();
+                saveEditBtn.innerText = "Save Changes";
+                saveEditBtn.disabled = false;
+                reloadGameData();
             }, 500);
         } else {
             alert("Failed to save.");
@@ -972,8 +1010,7 @@ canvas.addEventListener('click', async (e) => {
             });
             if (response.ok) {
                 // Save current player state so they don't get reset
-                saveGame();
-                location.reload();
+                await reloadGameData();
             }
         } catch (err) {
             console.error(err);
